@@ -1,0 +1,57 @@
+.post-content {
+  @include relative-font-size(0.9);
+}
+
+// Remove spacing around page header/title
+.post-header {
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border-bottom: none;
+}
+
+// Fix site-body grid columns to ensure consistent width across all pages
+// Use fixed widths for both sidebar and main to prevent layout shifts
+// Using !important to ensure these styles override layout.scss
+.site-body {
+  max-width: $content-width !important;
+  margin: 0 auto !important;
+  grid-template-columns: calc(#{$content-width} * 0.24) calc(#{$content-width} * 0.76) !important;
+  
+  @include media-query($on-medium) {
+    grid-template-columns: calc(#{$content-width} * 0.18) calc(#{$content-width} * 0.82) !important;
+  }
+  
+  @include media-query($on-small) {
+    max-width: 100% !important;
+    grid-template-columns: 1fr !important;
+  }
+}
+
+// Ensure site-main has consistent width across all pages
+.site-main {
+  box-sizing: border-box;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  width: 100%; // Take full width of grid column
+  max-width: 100%; // Prevent overflow
+}
+
+// Fix footer height to prevent content area from shrinking when footer-col is commented out
+// This ensures the footer always takes up the same space regardless of content
+.site-footer {
+  height: 5rem; // Fixed height to prevent layout shifts
+  display: flex;
+  align-items: center;
+  
+  .footer-col-wrapper {
+    width: 100%;
+  }
+}
+
+@media screen and (min-width: $on-medium) {
+  .footer-col {
+    flex: 1; // Make footer-col flexible to maintain consistent layout
+    width: auto; // Override fixed width calculation
+  }
+}
